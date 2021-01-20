@@ -26,4 +26,7 @@ public interface CategoryService {
     Result<List<CategoryEntity>> getCategoryByPid(@NotNull Integer pid);
 
 
+    @ApiOperation(value = "通过id删除分类")
+    @DeleteMapping(value = "/category/delete")
+    Result<JsonObject> deleteCategoryById(@NotNull Integer id);
 }

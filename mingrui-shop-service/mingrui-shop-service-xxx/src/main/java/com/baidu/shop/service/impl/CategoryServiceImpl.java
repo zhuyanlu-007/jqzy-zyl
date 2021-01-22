@@ -75,6 +75,8 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
         return this.setResultSuccess();
     }
 
+
+    //修改
     @Transactional
     @Override
     public Result<JsonObject> editCategoryById(CategoryEntity categoryEntity) {
@@ -83,4 +85,17 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
     }
 
 
+    //新增
+    @Transactional
+    @Override
+    public Result<JsonObject> addCategoryById(CategoryEntity categoryEntity) {
+        CategoryEntity parentCategoryEntity = new CategoryEntity();
+        parentCategoryEntity.setId(categoryEntity.getParentId());
+        parentCategoryEntity.setIsParent(1);
+        categoryMapper.updateByPrimaryKeySelective(parentCategoryEntity);
+
+        categoryMapper.insertSelective(categoryEntity);
+
+        return this.setResultSuccess();
+    }
 }
